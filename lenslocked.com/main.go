@@ -39,6 +39,12 @@ func faq(w http.ResponseWriter, r *http.Request) {
 		"can be found here</p>")
 }
 
+func notFound(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	fmt.Fprint(w, "<h1> Page not found! You must be lost</h1>"+
+		"\n<p>Head back to home and start from there</p>")
+}
+
 /*
   Fprint takes
   (1) and io.Writer to write to and
@@ -57,11 +63,14 @@ func faq(w http.ResponseWriter, r *http.Request) {
   and you would end up getting the same end result.
 */
 
+var nf http.Handler = http.HandlerFunc(notFound)
+
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", home)
 	r.HandleFunc("/contact", contact)
 	r.HandleFunc("/faq", faq)
+	r.NotFoundHandler = nf
 
 	http.ListenAndServe(":3000", r) // starts up a local web server using our new gorilla handler
 }
