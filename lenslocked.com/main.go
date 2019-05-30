@@ -3,6 +3,8 @@ package main //every go file must have a package name specified
 import ( //these are packages imported from the golang standard library
 	"fmt"      //formatting strings
 	"net/http" //tools for web development
+
+	"github.com/gorilla/mux"
 )
 
 /*
@@ -19,22 +21,22 @@ The pointer to request object allows us to access any information
 the user may have sent with the request e.g. email for sign in.
 */
 
-func handlerFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r)
+func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	if r.URL.Path == "/" {
-		fmt.Fprint(w, "<h1>Welcome to my site!</h1>")
-	} else if r.URL.Path == "/contact" {
-		fmt.Fprint(w, "To get in touch, please send an email "+
-			"to <a href=\"mailto:support@lenslocked.com\">"+
-			"support@lenslocked.com</a>.")
-	} else {
-		w.WriteHeader(http.StatusNotFound)
-		fmt.Fprint(w, "<h1>We could not find the page you "+
-			"were looking for :(</h1>"+
-			"<p>Please email us if you keep being sent to an "+
-			"invalid page.</p>")
-	}
+	fmt.Fprint(w, "<h1>Welcome to my site!</h1>")
+}
+
+func contact(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	fmt.Fprint(w, "To get in touch, please send an email "+
+		"to <a href=\"mailto:support@lenslocked.com\">"+
+		"support@lenslocked.com</a>.")
+}
+
+func faq(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	fmt.Fprint(w, "<h1>FAQ</h1>"+"\n<p> Frequently asked questions "+
+		"can be found here</p>")
 }
 
 /*
@@ -56,6 +58,10 @@ func handlerFunc(w http.ResponseWriter, r *http.Request) {
 */
 
 func main() {
-	http.HandleFunc("/", handlerFunc) // "/" handles all path requests
-	http.ListenAndServe(":3000", nil) // starts up a local web server using default handlers
+	r := mux.NewRouter()
+	r.HandleFunc("/", home)
+	r.HandleFunc("/contact", contact)
+	r.HandleFunc("/faq", faq)
+
+	http.ListenAndServe(":3000", r) // starts up a local web server using our new gorilla handler
 }
