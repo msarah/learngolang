@@ -1,1 +1,15 @@
 <h1>Hello, {{.Name}}!</h1>
+<h2>Your username is {{.Uname}}</h2>
+<p>
+  You are {{.Age}} years old
+  {{if .FavouriteFood.Breakfast}}
+    Your favourite breakfast food is {{.FavouriteFood.Breakfast}}
+  {{else}}
+    You don't have a favourite breakfast food, but that's okay!
+  {{end}}
+
+  Range through favourite foods: {{ range .FavouriteFood}}
+
+  {{.}}
+  {{end}}
+</p>
