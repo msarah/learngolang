@@ -3,9 +3,9 @@ package main //every go file must have a package name specified
 import ( //these are packages imported from the golang standard library
 	//formatting strings
 	"net/http" //tools for web development
-	"text/template"
 
 	"github.com/gorilla/mux"
+	"github.com/msarah/learngolang/lenslocked.com/views"
 )
 
 /*
@@ -13,41 +13,38 @@ We shouldn't be using a global variable here
 but for development purposes we will for now
 */
 
-var homeTemplate *template.Template
-var contactTemplate *template.Template
+var (
+	homeView    *views.View
+	contactView *views.View
+)
 
 //this will store our template
 
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	if err := homeTemplate.Execute(w, nil); err != nil {
+	err := homeView.Template.Execute(w, nil)
+	if err != nil {
 		panic(err)
 	}
 }
 
 func contact(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	if err := contactTemplate.Execute(w, nil); err != nil {
-		panic(err)
+	err := contactView.Template.Execute(w, nil)
+	if err != nil {
+		panic(err) //panics will clean up later
 	}
 }
 
 func main() {
+	homeView = views.NewView("views/home.gohtml")
+	contactView = views.NewView("views/contact.gohtml")
 	//we want to execute the template first before our router
-	var err error
-	homeTemplate, err = template.ParseFiles("views/home.gohtml")
-	if err != nil {
-		panic(err) // usually handle errors more gracefully
-	}
-
-	contactTemplate, err = template.ParseFiles("views/contact.gohtml")
-	if err != nil {
-		panic(err) // usually handle errors more gracefully
-	}
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", home)
 	r.HandleFunc("/contact", contact)
 
-	http.ListenAndServe(":3000", r) // starts up a local web server using our new gorilla handler
+	http.ListenAndServe(":3000", r)
+	// starts up a local web server using our new gorilla handler
 }
