@@ -12,10 +12,13 @@ creates a new View object
 parses all the template files necessary
 and returns the new View to us
 */
-func NewView(files ...string) *View {
+func NewView(layout string, files ...string) *View {
 	//Takes one OR MORE files (variadic parameter)
 
-	files = append(files, "views/layouts/footer.gohtml")
+	files = append(files,
+		"views/layouts/bootstrap.gohtml",
+		"views/layouts/footer.gohtml",
+	)
 	/*
 	  Take the files and append existing layout files we want to use
 	  This is harcoded now but will change later to choose based on
@@ -33,10 +36,12 @@ func NewView(files ...string) *View {
 
 	return &View{ //return pointer to View
 		Template: t, //our new template with layouts appended
+		Layout:   layout,
 	}
 }
 
 type View struct {
 	Template *template.Template
 	//this simply contains a template
+	Layout string
 }
