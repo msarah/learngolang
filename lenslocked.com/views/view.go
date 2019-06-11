@@ -28,8 +28,7 @@ func NewView(layout string, files ...string) *View {
 
 type View struct {
 	Template *template.Template
-	//this simply contains a template
-	Layout string
+	Layout   string
 }
 
 //layoutFiles returns a slice of strings representing
