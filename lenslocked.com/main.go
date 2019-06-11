@@ -38,6 +38,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
 	homeView = views.NewView("bootstrap", "views/home.gohtml")
 	contactView = views.NewView("bootstrap", "views/contact.gohtml")
 	//we want to execute the template first before our router
