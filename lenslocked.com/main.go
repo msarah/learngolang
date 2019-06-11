@@ -2,6 +2,7 @@ package main //every go file must have a package name specified
 
 import ( //these are packages imported from the golang standard library
 	//formatting strings
+	"fmt"
 	"net/http" //tools for web development
 
 	"github.com/gorilla/mux"
@@ -43,5 +44,6 @@ func main() {
 	r.HandleFunc("/contact", contact)
 
 	http.ListenAndServe(":3000", r)
+	fmt.Println("end")
 	// starts up a local web server using our new gorilla handler
 }
