@@ -11,7 +11,7 @@ var (
 )
 
 //NewView returns a View object to render with our specified file
-//and any necessary layout files appended
+//and any necessary layout files appended.
 func NewView(layout string, files ...string) *View {
 	files = append(files, layoutFiles()...)
 	t, err := template.ParseFiles(files...)

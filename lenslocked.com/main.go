@@ -8,11 +8,7 @@ import ( //these are packages imported from the golang standard library
 	"github.com/msarah/learngolang/lenslocked.com/views"
 )
 
-/*
-We shouldn't be using a global variable here
-but for development purposes we will for now
-*/
-
+//Global vars here are temporary
 var (
 	homeView    *views.View
 	contactView *views.View
