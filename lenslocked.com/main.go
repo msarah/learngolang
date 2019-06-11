@@ -15,8 +15,6 @@ var (
 	contactView *views.View
 )
 
-//this will store our template
-
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	err := homeView.Render(w, nil)
@@ -28,7 +26,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 func contact(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	err := contactView.Render(w, nil)
-	//^^this line will eventually become something like "contactView.render"
 	if err != nil {
 		panic(err) //panics will clean up later
 	}
