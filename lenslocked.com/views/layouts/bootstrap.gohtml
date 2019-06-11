@@ -8,15 +8,10 @@
   </head>
 
   <body>
-
+    {{template "navbar"}}
     <div class="container-fluid">
-      <!-- Our content will go here... somehow -->
-
-      
         {{template "yield" .}}
         <!--add the dot to pass data to the yield template  -->
-
-
     </div>
 
     <!-- jquery & Bootstrap JS -->

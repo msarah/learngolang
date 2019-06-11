@@ -18,6 +18,7 @@ func NewView(layout string, files ...string) *View {
 	files = append(files,
 		"views/layouts/bootstrap.gohtml",
 		"views/layouts/footer.gohtml",
+		"views/layouts/navbar.gohtml",
 	)
 	/*
 	  Take the files and append existing layout files we want to use
