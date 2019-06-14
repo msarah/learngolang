@@ -30,9 +30,9 @@ func faq(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	homeView = views.NewView("bootstrap", "views/home.gohtml")
-	contactView = views.NewView("bootstrap", "views/contact.gohtml")
-	faqView = views.NewView("bootstrap", "views/faq.gohtml")
+	homeView = views.NewView("main", "views/home.gohtml")
+	contactView = views.NewView("main", "views/contact.gohtml")
+	faqView = views.NewView("main", "views/faq.gohtml")
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", home)
