@@ -1,6 +1,10 @@
 package controllers
 
-import "github.com/msarah/learngolang/lenslocked.com/views"
+import (
+	"net/http"
+
+	"github.com/msarah/learngolang/lenslocked.com/views"
+)
 
 func NewUsers() *Users {
 	return &Users{
@@ -8,6 +12,16 @@ func NewUsers() *Users {
 	}
 }
 
+//this is our user controller
 type Users struct {
 	NewView *views.View //this is here so we can easily call the render method
+}
+
+//New is a method function which means it has access to
+//the Users controller and actions which allows us
+//to render the view necessary for a new user to sign up
+func (u *Users) New(w http.ResponseWriter, r *http.Request) {
+	if err := u.NewView.Render(w, nil); err != nil {
+		panic(err)
+	}
 }
