@@ -12,9 +12,11 @@ func main() {
 	usersC := controllers.NewUsers()
 
 	r := mux.NewRouter()
+	//views.View.Render implements the Handler interface
 	r.Handle("/", staticC.Home).Methods("GET")
 	r.Handle("/contact", staticC.Contact).Methods("GET")
 	r.Handle("/faq", staticC.Faq).Methods("GET")
+
 	r.HandleFunc("/signup", usersC.New).Methods("GET")
 	r.HandleFunc("/signup", usersC.Create).Methods("POST")
 
